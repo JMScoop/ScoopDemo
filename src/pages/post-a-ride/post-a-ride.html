@@ -1,0 +1,70 @@
+<ion-header>
+
+  <ion-navbar>
+  	<button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Post a Ride</ion-title>
+  </ion-navbar>
+
+</ion-header>
+<ion-content padding>
+<form (ngSubmit)="postRide()">
+  <ion-item>
+    <ion-label>Departure Date</ion-label>
+    <ion-datetime
+      displayFormat="MMM DD YYYY"
+      min="{{ today.format('YYYY-MM-DD')}}"
+      name="depart_date"
+      [(ngModel)]="ride.depart_date"></ion-datetime>
+  </ion-item>
+
+  <ion-item>
+    <ion-label>Departure Time</ion-label>
+    <ion-datetime
+      displayFormat="h:mm A"
+      pickerFormat="h mm A"
+      name="depart_time"
+      [(ngModel)]="ride.depart_time"></ion-datetime>
+  </ion-item>
+
+  <ion-item>
+    <ion-label>Leaving From</ion-label>
+    <ion-select [(ngModel)]="ride.leaving_from" name="leaving_from" interface="popover">
+      <ion-option *ngFor="let loc of locs">{{ loc }}</ion-option>
+    </ion-select>
+  </ion-item>
+  <ion-item *ngIf="showLeavingFromError">
+    <p class="danger" padding>Please specify where you are leaving from.</p>
+  </ion-item>
+  <ion-item>
+    <ion-label>Going To</ion-label>
+    <ion-select [(ngModel)]="ride.going_to" name="going_to" interface="popover">
+      <ion-option *ngFor="let loc of locs">{{ loc }}</ion-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-item>
+    <ion-label>Seats Available</ion-label>
+    <ion-select [(ngModel)]="ride.seats_available" name="seats_available" interface="popover">
+      <ion-option value="1">1</ion-option>
+      <ion-option value="2">2</ion-option>
+      <ion-option value="3">3</ion-option>
+      <ion-option value="4">4</ion-option>
+      <ion-option value="5">5</ion-option>
+      <ion-option value="6">6</ion-option>
+      <ion-option value="7">7</ion-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-item>
+    <ion-label stacked>Other Information</ion-label>
+    <ion-input type="text" [(ngModel)]="ride.notes" name="notes"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <button ion-button block color="primary" (click)="showToastWithCloseButton()">Post!</button>
+  </ion-item>
+</form>
+
+</ion-content>
